@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Happy Home</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="shortcut icon" href="/icon/icon.svg" type="image/x-icon">
+    <base href="/">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Oswald&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+</head>
+	<body>
+        <section class="loading">
+            <div class="loader">
+                <img src="/icon/icon.svg" alt="loading icon">
+            </div>
+        </section>
+  <%- include("nav") -%>
+		<div class="join-container formsection" style="margin-top: -1%; margin-bottom: -0.2%;">
+			<header class="join-header">
+        <h1><span><img src="/icon/chat.svg" alt="chat logo"></span>Chat Room<span><img src="/icon/chat.svg" alt="chat logo"></span></h1>
+			</header>
+			<main class="join-main">
+				<form>
+					<div class="form-control">
+						<label for="username">Username</label>
+						<input
+							type="text"
+							name="username"
+							id="username"
+                            placeholder="Enter username..."
+                            value=<%=email%>
+						/>
+					</div>
+					<div class="form-control">
+                        <label for="room">Room</label>
+                        <input
+							type="text"
+							name="room"
+							id="room"
+                            placeholder="Enter room id..."
+                            value=<%=roomid%>
+						/>
+                    </div>
+                    <div class="elementbtn chatbuttongrid" style="width: 60%;">
+                        <button type="submit" formaction="/message" formmethod="POST" class="btn">Create Room</button>
+                        <button type="submit" formaction="/add" formmethod="POST" class="btn">Join Room</button>
+                        <button type="submit" formaction="/chat" formmethod="GET" class="btn">Join Chat</button>
+                    </div>
+                    <div class="elementbtn chatbuttongrid" style="width: 145%; margin-top: 1%;">
+                        <button type="button" onclick="alertify.confirm('How To Use(One time process)', 'If you are buyer then you must create room with the room id given to owner through SMS and then join the room But If you are seller then you must got the SMS with unique room id enter it and then direct join the room And at last join chat and MAKE THE DEAL', function(){ alertify.error('OK') }, function(){ alertify.error('Cancel')});" class="btn">How To Use</button>
+                    </div>
+                </form>
+			</main>
+        </div>
+        <section class="footer">
+            <hr class="footerline" size="0">
+            <div class="content">
+                <p>Copyright <span><img src="/icon/icon.svg" alt="happyhomeicon"></span> Happy Home @2020</p>
+            </div>
+        </section>
+        <script type="text/javascript">
+            $(window).on("load", () => {
+                $(".loader").fadeOut("slow");
+            });
+            $('input').attr('autocomplete', 'off');
+            $("document").ready( function () {
+                alertify.error('<%=welmsg%>');
+            }); 
+        </script>
+	</body>
+</html>

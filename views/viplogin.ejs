@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Happy Home</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="shortcut icon" href="/icon/icon.svg" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Oswald&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script src="https://js.stripe.com/v3"></script>
+    <base href="/">
+</head>
+<body>
+  <%- include("nav") -%>
+<section class="logsection">
+  <div class="logformdiv">
+      <div class="logform element">
+              <div class="descriptionelement"> 
+                <h3>VIP<span><img src="/icon/vip.svg" alt="type logo" style="width: 7%; margin: 0 1% -2% 2%;"></span> ACCOUNT</h3>
+                <p>VIP Features just for <b>₹ 1000</b> for lifetime</p>
+                <div style="text-align: center;">
+                  <pre>* Publish your listing in featured section.</pre>
+                  <pre>* Your phone number will also display globally.</pre>
+                  <pre>* You can list as many property on Happy Home.</pre>
+                  <pre>* You will be able to chat with interested users.</pre>
+                </div>
+                <br>
+              </div>
+              <label for="logeleemil">Email: </label>
+              <input type="email" name="username" id="logeleemil" placeholder="eg. Abhi@happyhome.com" autocomplete="off" required value=<%=email%>>
+              <br>
+              <div class="logelementbtn">
+                  <button
+                  id="checkout-button-sku_HCqImvbBYnIrpP"
+                  role="link"
+                  >Pay</button>
+              </div>
+      <div id="error-message"></div>
+      </div>
+  </div>
+</section>
+
+<%- include("bar") -%>
+
+
+<script>
+(function() {
+  var stripe = Stripe('pk_test_43MKYI1qPCyAOa8qIyrT68ID00K881d9gO');
+
+  var checkoutButton = document.getElementById('checkout-button-sku_HCqImvbBYnIrpP');
+  checkoutButton.addEventListener('click', function () {
+    stripe.redirectToCheckout({
+      items: [{sku: 'sku_HCqImvbBYnIrpP', quantity: 1}],
+      successUrl: 'https://happyhomewebapp.herokuapp.com/home/successvip',
+      cancelUrl: 'https://happyhomewebapp.herokuapp.com/unsuccessvip',
+    })
+    .then(function (result) {
+      if (result.error) {
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
